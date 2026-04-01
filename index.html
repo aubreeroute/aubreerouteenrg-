@@ -1,1 +1,1377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>EverAg Customer Success Portal</title>
+<style>
+/* ============================================================
+   WINDOWS 2000 / MICROSOFT CLASSIC THEME
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
+:root {
+  --win-bg: #d4d0c8;
+  --win-dark: #808080;
+  --win-darker: #404040;
+  --win-light: #ffffff;
+  --win-face: #d4d0c8;
+  --win-shadow: #808080;
+  --win-hilight: #ffffff;
+  --win-activetitle: #000080;
+  --win-activetitletext: #ffffff;
+  --win-inactivetitle: #7a96df;
+  --win-inactivetitletext: #d8e4f8;
+  --win-btntext: #000000;
+  --win-btnface: #d4d0c8;
+  --win-btnhilight: #ffffff;
+  --win-btnshadow: #808080;
+  --win-btndkshadow: #404040;
+  --win-appworkspace: #808080;
+  --win-menu: #d4d0c8;
+  --win-window: #ffffff;
+  --win-windowtext: #000000;
+  --win-blue: #000080;
+  --win-teal: #008080;
+  --win-green: #008000;
+  --win-link: #0000ff;
+}
+
+html, body {
+  font-family: "Tahoma", "MS Sans Serif", Arial, sans-serif;
+  font-size: 11px;
+  background: var(--win-appworkspace);
+  color: var(--win-windowtext);
+  min-height: 100vh;
+}
+
+/* ---- RAISED BUTTON (3D bevel) ---- */
+.btn {
+  display: inline-block;
+  background: var(--win-btnface);
+  color: var(--win-btntext);
+  border-top: 2px solid var(--win-btnhilight);
+  border-left: 2px solid var(--win-btnhilight);
+  border-right: 2px solid var(--win-btndkshadow);
+  border-bottom: 2px solid var(--win-btndkshadow);
+  padding: 4px 16px 5px;
+  font-family: "Tahoma", "MS Sans Serif", Arial, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
+}
+.btn:active {
+  border-top: 2px solid var(--win-btndkshadow);
+  border-left: 2px solid var(--win-btndkshadow);
+  border-right: 2px solid var(--win-btnhilight);
+  border-bottom: 2px solid var(--win-btnhilight);
+  padding: 5px 15px 4px 17px;
+}
+.btn-default {
+  border-top: 2px solid var(--win-btndkshadow);
+  border-left: 2px solid var(--win-btndkshadow);
+  border-right: 2px solid var(--win-btnhilight);
+  border-bottom: 2px solid var(--win-btnhilight);
+  outline: 1px solid #000;
+  outline-offset: -4px;
+}
+
+/* ---- INSET (sunken) ---- */
+.inset {
+  border-top: 1px solid var(--win-btnshadow);
+  border-left: 1px solid var(--win-btnshadow);
+  border-right: 1px solid var(--win-btnhilight);
+  border-bottom: 1px solid var(--win-btnhilight);
+}
+.inset2 {
+  border-top: 2px solid var(--win-btnshadow);
+  border-left: 2px solid var(--win-btnshadow);
+  border-right: 2px solid var(--win-btnhilight);
+  border-bottom: 2px solid var(--win-btnhilight);
+}
+
+/* ---- RAISED PANEL ---- */
+.raised {
+  border-top: 2px solid var(--win-btnhilight);
+  border-left: 2px solid var(--win-btnhilight);
+  border-right: 2px solid var(--win-btndkshadow);
+  border-bottom: 2px solid var(--win-btndkshadow);
+}
+
+/* ---- WINDOW ---- */
+.window {
+  background: var(--win-face);
+  border-top: 2px solid var(--win-btnhilight);
+  border-left: 2px solid var(--win-btnhilight);
+  border-right: 2px solid var(--win-btndkshadow);
+  border-bottom: 2px solid var(--win-btndkshadow);
+  margin: 6px;
+}
+
+/* ---- TITLE BAR ---- */
+.titlebar {
+  background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 3px 4px 3px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+.titlebar-inactive {
+  background: linear-gradient(90deg, #7a96df 0%, #b0c4ee 100%);
+  color: #d8e4f8;
+}
+.titlebar-icon {
+  width: 14px; height: 14px;
+  margin-right: 4px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.titlebar-title {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.titlebar-btns {
+  display: flex;
+  gap: 2px;
+}
+.titlebar-btn {
+  width: 16px; height: 14px;
+  background: var(--win-btnface);
+  border-top: 1px solid var(--win-btnhilight);
+  border-left: 1px solid var(--win-btnhilight);
+  border-right: 1px solid var(--win-btndkshadow);
+  border-bottom: 1px solid var(--win-btndkshadow);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: bold; color: #000;
+  cursor: pointer; line-height: 1;
+}
+
+/* ---- MENU BAR ---- */
+#menubar {
+  background: var(--win-menu);
+  border-bottom: 1px solid var(--win-btnshadow);
+  display: flex;
+  align-items: center;
+  padding: 0 2px;
+  gap: 0;
+}
+.menu-item {
+  padding: 3px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.menu-item:hover, .menu-item.active {
+  background: var(--win-activetitle);
+  color: var(--win-activetitletext);
+}
+
+/* ---- TASKBAR ---- */
+#taskbar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 30px;
+  background: var(--win-face);
+  border-top: 2px solid var(--win-btnhilight);
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  z-index: 999;
+  gap: 4px;
+}
+.start-btn {
+  background: var(--win-btnface);
+  border-top: 2px solid var(--win-btnhilight);
+  border-left: 2px solid var(--win-btnhilight);
+  border-right: 2px solid var(--win-btndkshadow);
+  border-bottom: 2px solid var(--win-btndkshadow);
+  padding: 2px 10px 2px 6px;
+  font-weight: bold;
+  font-size: 11px;
+  display: flex; align-items: center; gap: 4px;
+  cursor: pointer;
+  font-family: "Tahoma", Arial, sans-serif;
+  height: 22px;
+}
+.start-btn:active {
+  border-top: 2px solid var(--win-btndkshadow);
+  border-left: 2px solid var(--win-btndkshadow);
+  border-right: 2px solid var(--win-btnhilight);
+  border-bottom: 2px solid var(--win-btnhilight);
+}
+.taskbar-sep {
+  width: 2px; height: 20px;
+  border-left: 1px solid var(--win-btnshadow);
+  border-right: 1px solid var(--win-btnhilight);
+  margin: 0 2px;
+}
+.taskbar-task {
+  height: 22px;
+  padding: 2px 10px;
+  font-size: 11px;
+  font-family: "Tahoma", Arial, sans-serif;
+  background: var(--win-btnface);
+  border-top: 2px solid var(--win-btndkshadow);
+  border-left: 2px solid var(--win-btndkshadow);
+  border-right: 2px solid var(--win-btnhilight);
+  border-bottom: 2px solid var(--win-btnhilight);
+  cursor: pointer;
+  font-weight: bold;
+  display: flex; align-items: center; gap: 4px;
+  white-space: nowrap;
+  min-width: 100px;
+}
+.taskbar-task.inactive {
+  border-top: 2px solid var(--win-btnhilight);
+  border-left: 2px solid var(--win-btnhilight);
+  border-right: 2px solid var(--win-btndkshadow);
+  border-bottom: 2px solid var(--win-btndkshadow);
+  font-weight: normal;
+}
+.tray {
+  margin-left: auto;
+  height: 22px;
+  border-top: 1px solid var(--win-btnshadow);
+  border-left: 1px solid var(--win-btnshadow);
+  border-right: 1px solid var(--win-btnhilight);
+  border-bottom: 1px solid var(--win-btnhilight);
+  padding: 2px 8px;
+  font-size: 10px;
+  display: flex; align-items: center; gap: 6px;
+  white-space: nowrap;
+}
+
+/* ---- DESKTOP ---- */
+#desktop {
+  min-height: calc(100vh - 30px);
+  background: var(--win-appworkspace);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 10px 10px 40px;
+  position: relative;
+}
+
+/* ---- MAIN APP WINDOW ---- */
+#main-window {
+  width: 100%;
+  max-width: 960px;
+  background: var(--win-face);
+  border-top: 2px solid var(--win-btnhilight);
+  border-left: 2px solid var(--win-btnhilight);
+  border-right: 2px solid var(--win-btndkshadow);
+  border-bottom: 2px solid var(--win-btndkshadow);
+}
+
+/* ---- TOOLBAR ---- */
+#toolbar {
+  background: var(--win-face);
+  border-bottom: 1px solid var(--win-btnshadow);
+  padding: 3px 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.tb-btn {
+  width: 22px; height: 22px;
+  background: var(--win-btnface);
+  border: 1px solid transparent;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+.tb-btn:hover {
+  border-top: 1px solid var(--win-btnhilight);
+  border-left: 1px solid var(--win-btnhilight);
+  border-right: 1px solid var(--win-btndkshadow);
+  border-bottom: 1px solid var(--win-btndkshadow);
+}
+.tb-sep {
+  width: 6px; height: 22px;
+  border-left: 1px solid var(--win-btnshadow);
+  border-right: 1px solid var(--win-btnhilight);
+  margin: 0 2px;
+}
+.address-bar {
+  display: flex; align-items: center; gap: 4px;
+  flex: 1;
+}
+.address-label {
+  font-size: 11px; font-weight: bold; white-space: nowrap;
+}
+.address-input {
+  flex: 1;
+  height: 20px;
+  background: #fff;
+  border-top: 1px solid var(--win-btnshadow);
+  border-left: 1px solid var(--win-btnshadow);
+  border-right: 1px solid var(--win-btnhilight);
+  border-bottom: 1px solid var(--win-btnhilight);
+  font-family: "Tahoma", Arial, sans-serif;
+  font-size: 11px;
+  padding: 0 4px;
+  outline: none;
+  color: var(--win-link);
+}
+
+/* ---- CONTENT AREA SPLIT ---- */
+#content-area {
+  display: flex;
+  min-height: 520px;
+}
+
+/* ---- EXPLORER SIDEBAR ---- */
+#sidebar {
+  width: 180px;
+  min-width: 180px;
+  background: var(--win-face);
+  border-right: 2px solid var(--win-btnshadow);
+  padding: 0;
+  flex-shrink: 0;
+}
+.sidebar-section {
+  border-bottom: 1px solid var(--win-btnshadow);
+}
+.sidebar-section-title {
+  background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+  color: #fff;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 3px 8px;
+}
+.sidebar-item {
+  padding: 4px 10px 4px 20px;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 5px;
+  color: var(--win-link);
+  text-decoration: underline;
+}
+.sidebar-item:hover { background: #0a246a; color: #fff; }
+.sidebar-item.active { background: #0a246a; color: #fff; }
+.sidebar-icon { font-size: 13px; }
+
+/* ---- PAGE CONTENT ---- */
+#page-content {
+  flex: 1;
+  background: var(--win-window);
+  padding: 0;
+  overflow-y: auto;
+  min-height: 520px;
+}
+.page { display: none; }
+
+/* ---- SECTION CONTAINER ---- */
+.win-section {
+  padding: 16px 20px;
+}
+.win-section-title {
+  background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 10px;
+  margin-bottom: 12px;
+}
+.win-groupbox {
+  border: 1px solid var(--win-btnshadow);
+  margin: 8px 0;
+  padding: 10px 12px;
+  position: relative;
+}
+.win-groupbox-label {
+  position: absolute;
+  top: -7px; left: 10px;
+  background: var(--win-window);
+  padding: 0 4px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+/* ---- HERO (HOME) ---- */
+.hero-logo-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.ea-logo-box {
+  width: 48px; height: 48px;
+  background: #000080;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: "Times New Roman", serif;
+  border-top: 2px solid var(--win-btnhilight);
+  border-left: 2px solid var(--win-btnhilight);
+  border-right: 2px solid var(--win-btndkshadow);
+  border-bottom: 2px solid var(--win-btndkshadow);
+}
+.hero-title {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Tahoma", Arial, sans-serif;
+  color: #000080;
+  letter-spacing: 0;
+}
+.hero-sub {
+  font-size: 11px;
+  color: #000;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.hero-sub em { color: #000080; font-style: normal; }
+
+/* ---- WELCOME BANNER ---- */
+.welcome-banner {
+  background: linear-gradient(90deg, #000080 0%, #1084d0 60%, #008080 100%);
+  color: #fff;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex; align-items: center; gap: 10px;
+}
+.banner-star {
+  font-size: 18px;
+  color: #ffff00;
+}
+
+/* ---- SVG LOGO CARD ---- */
+.logo-card {
+  max-width: 560px;
+  margin-bottom: 14px;
+  border-top: 2px solid var(--win-btnshadow);
+  border-left: 2px solid var(--win-btnshadow);
+  border-right: 2px solid var(--win-btnhilight);
+  border-bottom: 2px solid var(--win-btnhilight);
+  background: #fff;
+}
+
+/* ---- CAPTURE FORM ---- */
+.capture-box {
+  background: var(--win-face);
+  border-top: 2px solid var(--win-btnshadow);
+  border-left: 2px solid var(--win-btnshadow);
+  border-right: 2px solid var(--win-btnhilight);
+  border-bottom: 2px solid var(--win-btnhilight);
+  padding: 12px 16px;
+  max-width: 340px;
+  margin-top: 14px;
+}
+.capture-box h3 {
+  font-size: 11px; font-weight: bold;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--win-btnshadow);
+  padding-bottom: 4px;
+}
+.win-input {
+  width: 100%;
+  height: 20px;
+  background: #fff;
+  border-top: 1px solid var(--win-btndkshadow);
+  border-left: 1px solid var(--win-btndkshadow);
+  border-right: 1px solid var(--win-btnhilight);
+  border-bottom: 1px solid var(--win-btnhilight);
+  font-family: "Tahoma", Arial, sans-serif;
+  font-size: 11px;
+  padding: 0 4px;
+  outline: none;
+  margin-bottom: 4px;
+  box-sizing: border-box;
+}
+.win-textarea {
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid var(--win-btndkshadow);
+  border-left: 1px solid var(--win-btndkshadow);
+  border-right: 1px solid var(--win-btnhilight);
+  border-bottom: 1px solid var(--win-btnhilight);
+  font-family: "Tahoma", Arial, sans-serif;
+  font-size: 11px;
+  padding: 4px;
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+  box-sizing: border-box;
+}
+
+/* ---- PRODUCTS ---- */
+.products-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+.prod-card {
+  background: var(--win-face);
+  border-top: 2px solid var(--win-btnhilight);
+  border-left: 2px solid var(--win-btnhilight);
+  border-right: 2px solid var(--win-btndkshadow);
+  border-bottom: 2px solid var(--win-btndkshadow);
+  padding: 10px;
+}
+.prod-card-title {
+  background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+  color: #fff;
+  font-size: 11px; font-weight: bold;
+  padding: 2px 6px;
+  margin: -10px -10px 8px;
+  display: flex; align-items: center; gap: 4px;
+}
+.prod-card h3 {
+  font-size: 11px; font-weight: bold; color: #000;
+  margin-bottom: 4px;
+}
+.prod-card p { font-size: 11px; line-height: 1.5; color: #000; }
+.prod-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--win-link);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ---- RESOURCES ---- */
+.res-tabs {
+  display: flex; gap: 0; margin-bottom: 10px;
+}
+.tab-btn {
+  padding: 3px 12px;
+  font-size: 11px;
+  background: var(--win-face);
+  border-top: 2px solid var(--win-btnhilight);
+  border-left: 2px solid var(--win-btnhilight);
+  border-right: 1px solid var(--win-btndkshadow);
+  border-bottom: 1px solid var(--win-btndkshadow);
+  cursor: pointer;
+  font-family: "Tahoma", Arial, sans-serif;
+  margin-right: 2px;
+}
+.tab-btn.active {
+  background: #fff;
+  border-bottom: 2px solid #fff;
+  font-weight: bold;
+}
+.res-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+.res-card {
+  background: #fff;
+  border-top: 1px solid var(--win-btnshadow);
+  border-left: 1px solid var(--win-btnshadow);
+  border-right: 1px solid var(--win-btnhilight);
+  border-bottom: 1px solid var(--win-btnhilight);
+  padding: 8px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.res-type {
+  font-size: 9px; font-weight: bold; letter-spacing: 1px;
+  text-transform: uppercase; padding: 1px 6px;
+  display: inline-block; width: fit-content;
+}
+.type-video { background: #c0392b; color: #fff; }
+.type-article { background: #000080; color: #fff; }
+.type-guide { background: #008000; color: #fff; }
+.res-card h4 { font-size: 11px; font-weight: bold; color: #000; }
+.res-card p { font-size: 11px; color: #444; line-height: 1.4; flex: 1; }
+.res-link { font-size: 11px; color: var(--win-link); text-decoration: underline; cursor: pointer; }
+
+/* ---- HOW IT WORKS ---- */
+.steps-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.step-card {
+  background: var(--win-face);
+  border-top: 2px solid var(--win-btnhilight);
+  border-left: 2px solid var(--win-btnhilight);
+  border-right: 2px solid var(--win-btndkshadow);
+  border-bottom: 2px solid var(--win-btndkshadow);
+  padding: 10px;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.step-num {
+  font-size: 22px; font-weight: bold; color: #000080;
+  line-height: 1; min-width: 30px;
+  font-family: "Times New Roman", serif;
+}
+.step-card h3 { font-size: 11px; font-weight: bold; margin-bottom: 3px; }
+.step-card p { font-size: 11px; line-height: 1.5; color: #444; }
+.demo-box {
+  background: var(--win-face);
+  border-top: 2px solid var(--win-btnshadow);
+  border-left: 2px solid var(--win-btnshadow);
+  border-right: 2px solid var(--win-btnhilight);
+  border-bottom: 2px solid var(--win-btnhilight);
+  padding: 16px;
+  text-align: center;
+}
+.demo-box strong { color: #000080; font-size: 12px; display: block; margin-bottom: 4px; }
+.demo-box p { font-size: 11px; color: #444; }
+
+/* ---- ABOUT ---- */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.photos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.upload-slot {
+  border-top: 1px solid var(--win-btnshadow);
+  border-left: 1px solid var(--win-btnshadow);
+  border-right: 1px solid var(--win-btnhilight);
+  border-bottom: 1px solid var(--win-btnhilight);
+  background: var(--win-face);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  position: relative; overflow: hidden;
+}
+.upload-slot.main { grid-column: 1/-1; aspect-ratio: 4/3; }
+.upload-slot.small { aspect-ratio: 1; }
+.upload-slot.video { aspect-ratio: 16/9; margin-top: 8px; }
+.upload-slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+.upload-slot video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; display: none; }
+.slot-ph { font-size: 10px; color: #808080; text-align: center; padding: 6px; position: relative; z-index: 1; }
+.slot-input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; z-index: 2; pointer-events: none; }
+.slot-overlay { position: absolute; inset: 0; background: rgba(0,0,128,0); display: flex; align-items: center; justify-content: center; transition: background .2s; z-index: 3; pointer-events: none; }
+.upload-slot:hover .slot-overlay { background: rgba(0,0,128,0.4); }
+.slot-overlay span { color: #fff; font-size: 10px; font-weight: bold; opacity: 0; transition: opacity .2s; background: rgba(0,0,0,.5); padding: 3px 8px; }
+.upload-slot:hover .slot-overlay span { opacity: 1; }
+.slot-hint { display: none; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); background: #000080; color: #fff; font-size: 9px; font-weight: bold; padding: 2px 8px; white-space: nowrap; z-index: 4; pointer-events: none; }
+body.admin .slot-hint { display: block; }
+body.admin .slot-input { cursor: pointer; pointer-events: all; }
+.about-text h2 { font-size: 14px; font-weight: bold; color: #000080; margin-bottom: 8px; }
+.about-text p { font-size: 11px; line-height: 1.7; color: #000; margin-bottom: 6px; }
+
+/* ---- CONTACT ---- */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.contact-info p { font-size: 11px; line-height: 1.7; margin-bottom: 8px; }
+.c-detail { font-size: 11px; color: #000; margin-bottom: 4px; display: flex; gap: 6px; }
+.c-detail a { color: var(--win-link); }
+.c-form { display: flex; flex-direction: column; gap: 5px; }
+.c-confirm { display: none; color: #000080; font-size: 11px; font-weight: bold; margin-top: 4px; text-align: center; }
+.cap-confirm { display: none; color: #000080; font-size: 11px; margin-top: 5px; text-align: center; }
+
+/* ---- STATUS BAR ---- */
+#statusbar {
+  background: var(--win-face);
+  border-top: 1px solid var(--win-btnshadow);
+  padding: 2px 8px;
+  display: flex; align-items: center; gap: 4px;
+  font-size: 10px;
+}
+.status-pane {
+  border-top: 1px solid var(--win-btnshadow);
+  border-left: 1px solid var(--win-btnshadow);
+  border-right: 1px solid var(--win-btnhilight);
+  border-bottom: 1px solid var(--win-btnhilight);
+  padding: 1px 10px;
+  font-size: 10px;
+}
+
+/* ---- MODAL ---- */
+.modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 2000; align-items: center; justify-content: center; }
+.modal-bg.open { display: flex; }
+.modal-box {
+  background: var(--win-face);
+  border-top: 2px solid var(--win-btnhilight);
+  border-left: 2px solid var(--win-btnhilight);
+  border-right: 2px solid var(--win-btndkshadow);
+  border-bottom: 2px solid var(--win-btndkshadow);
+  max-width: 340px; width: 90%;
+  box-shadow: 4px 4px 0 rgba(0,0,0,.4);
+}
+.modal-body { padding: 16px; }
+.modal-box h2 { font-size: 11px; font-weight: bold; margin-bottom: 6px; }
+.modal-box p { font-size: 11px; color: #444; margin-bottom: 10px; }
+.modal-btns { display: flex; gap: 6px; justify-content: center; }
+.modal-ok { background: var(--win-btnface); }
+.modal-cancel { background: var(--win-btnface); }
+.modal-err { color: #c0392b; font-size: 10px; margin-bottom: 5px; display: none; font-weight: bold; }
+
+/* ---- NOTIFICATION ---- */
+#notif {
+  position: fixed; top: 20px; right: 20px; z-index: 3000;
+  background: var(--win-face);
+  border-top: 2px solid var(--win-btnhilight);
+  border-left: 2px solid var(--win-btnhilight);
+  border-right: 2px solid var(--win-btndkshadow);
+  border-bottom: 2px solid var(--win-btndkshadow);
+  padding: 8px 16px;
+  font-size: 11px;
+  font-weight: bold;
+  box-shadow: 3px 3px 0 rgba(0,0,0,.3);
+  transform: translateY(-10px); opacity: 0; transition: all .25s;
+  pointer-events: none;
+  display: flex; align-items: center; gap: 8px;
+  max-width: 300px;
+}
+#notif.show { transform: translateY(0); opacity: 1; }
+.notif-icon { font-size: 16px; }
+
+/* ---- ADMIN BAR ---- */
+#admin-bar {
+  display: none; position: fixed; bottom: 30px; left: 0; right: 0; z-index: 1100;
+  background: var(--win-face);
+  border-top: 2px solid var(--win-btnhilight);
+  padding: 4px 10px;
+  align-items: center; justify-content: space-between; gap: 8px;
+}
+#admin-bar.show { display: flex; }
+#admin-bar span { font-size: 10px; color: #000080; font-weight: bold; }
+.ab-btns { display: flex; gap: 6px; }
+
+/* ---- EDITABLE ---- */
+body.admin .editable {
+  background: #ffffcc;
+  outline: 1px dashed #808080;
+  cursor: text;
+}
+
+/* ---- SCROLLBAR (IE/Edge Win2k feel) ---- */
+::-webkit-scrollbar { width: 16px; height: 16px; }
+::-webkit-scrollbar-track { background: var(--win-btnface); }
+::-webkit-scrollbar-thumb { background: var(--win-btnface); border-top: 2px solid var(--win-btnhilight); border-left: 2px solid var(--win-btnhilight); border-right: 2px solid var(--win-btndkshadow); border-bottom: 2px solid var(--win-btndkshadow); }
+::-webkit-scrollbar-button { background: var(--win-btnface); border-top: 2px solid var(--win-btnhilight); border-left: 2px solid var(--win-btnhilight); border-right: 2px solid var(--win-btndkshadow); border-bottom: 2px solid var(--win-btndkshadow); height: 16px; display: block; }
+
+/* ---- MISC ---- */
+.win-hr { border: none; border-top: 1px solid var(--win-btnshadow); border-bottom: 1px solid var(--win-btnhilight); margin: 10px 0; }
+a { color: var(--win-link); }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 680px) {
+  .products-grid, .res-grid, .steps-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+  #sidebar { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== DESKTOP ===== -->
+<div id="desktop">
+
+  <!-- ===== MAIN WINDOW ===== -->
+  <div id="main-window">
+
+    <!-- TITLE BAR -->
+    <div class="titlebar" id="main-titlebar">
+      <div class="titlebar-title">
+        <!-- Windows-style folder icon SVG -->
+        <svg class="titlebar-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="4" width="16" height="10" fill="#f0c040" stroke="#a07800" stroke-width="0.5"/>
+          <rect x="0" y="4" width="7" height="3" fill="#f0c040" rx="1" stroke="#a07800" stroke-width="0.5"/>
+          <rect x="0" y="5" width="16" height="9" fill="#ffd060" stroke="#a07800" stroke-width="0.5"/>
+        </svg>
+        EverAg Customer Success Portal - [Home]
+      </div>
+      <div class="titlebar-btns">
+        <div class="titlebar-btn">_</div>
+        <div class="titlebar-btn">&#9633;</div>
+        <div class="titlebar-btn" style="font-size:10px">&#10005;</div>
+      </div>
+    </div>
+
+    <!-- MENU BAR -->
+    <div id="menubar">
+      <div class="menu-item">File</div>
+      <div class="menu-item">Edit</div>
+      <div class="menu-item">View</div>
+      <div class="menu-item">Favorites</div>
+      <div class="menu-item">Tools</div>
+      <div class="menu-item">Help</div>
+    </div>
+
+    <!-- TOOLBAR -->
+    <div id="toolbar">
+      <button class="tb-btn btn" title="Back" onclick="history.back()">&#9664;</button>
+      <button class="tb-btn btn" title="Forward" onclick="history.forward()">&#9654;</button>
+      <button class="tb-btn btn" title="Stop">&#9632;</button>
+      <button class="tb-btn btn" title="Refresh">&#8635;</button>
+      <div class="tb-sep"></div>
+      <button class="tb-btn btn" title="Home" onclick="goPage('home')">&#127968;</button>
+      <div class="tb-sep"></div>
+      <div class="address-bar">
+        <span class="address-label">Address</span>
+        <input class="address-input" type="text" id="addressBar" value="http://everag.local/customer-success/home" readonly/>
+        <button class="btn" style="height:20px;padding:0 8px;" onclick="goPage('home')">Go</button>
+      </div>
+    </div>
+
+    <!-- CONTENT SPLIT: SIDEBAR + PAGES -->
+    <div id="content-area">
+
+      <!-- EXPLORER SIDEBAR -->
+      <div id="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">&#128196; Navigation</div>
+          <div class="sidebar-item active" id="nl-home" onclick="goPage('home')"><span class="sidebar-icon">🏠</span>Home</div>
+          <div class="sidebar-item" id="nl-products" onclick="goPage('products')"><span class="sidebar-icon">📦</span>Products</div>
+          <div class="sidebar-item" id="nl-resources" onclick="goPage('resources')"><span class="sidebar-icon">📚</span>Resources</div>
+          <div class="sidebar-item" id="nl-howitworks" onclick="goPage('howitworks')"><span class="sidebar-icon">⚙️</span>How It Works</div>
+          <div class="sidebar-item" id="nl-about" onclick="goPage('about')"><span class="sidebar-icon">👤</span>About</div>
+          <div class="sidebar-item" id="nl-contact" onclick="goPage('contact')"><span class="sidebar-icon">✉️</span>Contact</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">&#128279; Quick Links</div>
+          <div class="sidebar-item" onclick="goPage('resources')"><span class="sidebar-icon">🎬</span>Videos</div>
+          <div class="sidebar-item" onclick="goPage('resources')"><span class="sidebar-icon">📄</span>Articles</div>
+          <div class="sidebar-item" onclick="goPage('resources')"><span class="sidebar-icon">📋</span>Guides</div>
+        </div>
+        <div class="sidebar-section" style="margin-top:auto">
+          <div class="sidebar-section-title">&#128274; Admin</div>
+          <div class="sidebar-item" onclick="openModal()"><span class="sidebar-icon">🔑</span>Admin Login</div>
+        </div>
+      </div>
+
+      <!-- PAGE CONTENT -->
+      <div id="page-content">
+
+        <!-- ===== HOME ===== -->
+        <div id="page-home" class="page">
+          <div class="welcome-banner">
+            <span class="banner-star">&#9733;</span>
+            Welcome to EverAg Customer Success Portal &mdash; Your trusted resource hub
+            <span class="banner-star">&#9733;</span>
+          </div>
+          <div class="win-section">
+            <div class="win-section-title">&#127968; Home &mdash; EverAg Customer Success Portal</div>
+            <div class="hero-logo-box">
+              <div class="ea-logo-box">EA</div>
+              <div>
+                <div class="hero-title editable" contenteditable="false">EverAg Customer Success Portal</div>
+                <div style="font-size:11px;color:#808080;font-style:italic">Managed by AuBree Route &bull; Summer 2026</div>
+              </div>
+            </div>
+
+            <!-- Logo card with inline SVG -->
+            <div class="logo-card">
+              <svg width="100%" viewBox="0 0 680 280" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="680" height="280" fill="#d4d0c8"/>
+                <!-- Title bar style header -->
+                <defs>
+                  <linearGradient id="tb" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#000080"/>
+                    <stop offset="100%" stop-color="#1084d0"/>
+                  </linearGradient>
+                </defs>
+                <rect x="0" y="0" width="680" height="22" fill="url(#tb)"/>
+                <text x="8" y="15" font-family="Tahoma,Arial" font-size="11" font-weight="bold" fill="#ffffff">EverAg - Customer Success Portal</text>
+                <rect x="644" y="3" width="13" height="13" fill="#d4d0c8" stroke="#808080" stroke-width="1"/>
+                <text x="650" y="13" font-family="Tahoma" font-size="8" fill="#000">_</text>
+                <rect x="659" y="3" width="13" height="13" fill="#d4d0c8" stroke="#808080" stroke-width="1"/>
+                <text x="663" y="13" font-family="Tahoma" font-size="8" fill="#000">&#9633;</text>
+                <!-- EA logo box -->
+                <rect x="20" y="44" width="44" height="44" fill="#000080"/>
+                <rect x="18" y="42" width="44" height="44" fill="none" stroke="#ffffff" stroke-width="1"/>
+                <rect x="22" y="46" width="44" height="44" fill="none" stroke="#404040" stroke-width="1"/>
+                <text x="40" y="72" text-anchor="middle" font-family="Times New Roman,serif" font-weight="700" font-size="20" fill="#ffffff">EA</text>
+                <!-- Title text -->
+                <text x="78" y="58" font-family="Tahoma,Arial" font-weight="700" font-size="18" fill="#000080">EverAg</text>
+                <text x="78" y="76" font-family="Tahoma,Arial" font-size="9" fill="#808080" letter-spacing="2">CUSTOMER SUCCESS PORTAL</text>
+                <!-- Separator line (inset) -->
+                <line x1="18" y1="98" x2="662" y2="98" stroke="#808080" stroke-width="1"/>
+                <line x1="18" y1="99" x2="662" y2="99" stroke="#ffffff" stroke-width="1"/>
+                <!-- Name and title badge -->
+                <text x="20" y="128" font-family="Tahoma,Arial" font-weight="700" font-size="28" fill="#000080">AuBree Route</text>
+                <rect x="20" y="143" width="220" height="20" fill="#000080"/>
+                <text x="130" y="157" text-anchor="middle" font-family="Tahoma,Arial" font-weight="600" font-size="9.5" fill="#ffffff" letter-spacing="1.5">CUSTOMER SUCCESS INTERN</text>
+                <!-- Right panel: Win2k style group box -->
+                <rect x="400" y="40" width="260" height="200" fill="#d4d0c8" stroke="#808080" stroke-width="1"/>
+                <rect x="398" y="38" width="260" height="200" fill="none" stroke="#ffffff" stroke-width="1"/>
+                <text x="412" y="55" font-family="Tahoma,Arial" font-size="9" fill="#000080" font-weight="bold">&#x25A0; Portal Features</text>
+                <line x1="410" y1="60" x2="648" y2="60" stroke="#808080" stroke-width="1"/>
+                <text x="416" y="78" font-family="Tahoma,Arial" font-size="9" fill="#000">&#9658; Product Resources &amp; Guides</text>
+                <text x="416" y="96" font-family="Tahoma,Arial" font-size="9" fill="#000">&#9658; How-To Videos &amp; Articles</text>
+                <text x="416" y="114" font-family="Tahoma,Arial" font-size="9" fill="#000">&#9658; Direct Support Contact</text>
+                <text x="416" y="132" font-family="Tahoma,Arial" font-size="9" fill="#000">&#9658; Market Analytics Access</text>
+                <text x="416" y="150" font-family="Tahoma,Arial" font-size="9" fill="#000">&#9658; Onboarding Assistance</text>
+                <!-- Summer 2026 badge -->
+                <rect x="420" y="195" width="100" height="18" fill="#d4d0c8" stroke="#808080" stroke-width="1"/>
+                <text x="470" y="208" text-anchor="middle" font-family="Tahoma,Arial" font-size="9" fill="#000080" font-weight="bold">Summer 2026</text>
+                <!-- Bottom status bar look -->
+                <line x1="0" y1="260" x2="680" y2="260" stroke="#808080" stroke-width="1"/>
+                <line x1="0" y1="261" x2="680" y2="261" stroke="#ffffff" stroke-width="1"/>
+                <text x="20" y="273" font-family="Tahoma,Arial" font-size="9" fill="#808080">Ready</text>
+                <rect x="580" y="262" width="90" height="14" fill="none" stroke="#808080" stroke-width="0.5"/>
+                <text x="625" y="272" text-anchor="middle" font-family="Tahoma,Arial" font-size="8" fill="#808080">100%</text>
+              </svg>
+            </div>
+
+            <p class="hero-sub editable" contenteditable="false">Get instant answers, how-to guides, and resources for every EverAg product and service. Spend less time waiting and <em>more time growing</em>.</p>
+
+            <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+              <button class="btn btn-default" onclick="goPage('products')">&#128196; Explore Products</button>
+              <button class="btn" onclick="goPage('resources')">&#128218; Browse Resources</button>
+              <button class="btn" onclick="goPage('contact')">&#128139; Contact Support</button>
+            </div>
+
+            <div class="win-hr"></div>
+
+            <!-- Email capture as a dialog-style box -->
+            <div class="capture-box">
+              <h3>&#128139; Stay in the Loop &mdash; Email Newsletter</h3>
+              <div id="capFields">
+                <label style="font-size:10px;display:block;margin-bottom:2px">Name:</label>
+                <input class="win-input" type="text" id="capName" placeholder="Your name"/>
+                <label style="font-size:10px;display:block;margin-bottom:2px">Email Address:</label>
+                <input class="win-input" type="email" id="capEmail" placeholder="your@email.com"/>
+                <div style="display:flex;gap:6px;margin-top:6px">
+                  <button class="btn btn-default" onclick="submitCapture()">OK</button>
+                  <button class="btn" onclick="document.getElementById('capName').value='';document.getElementById('capEmail').value=''">Cancel</button>
+                </div>
+              </div>
+              <div class="cap-confirm" id="capConfirm">&#9989; You are on the list! We will be in touch soon.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== PRODUCTS ===== -->
+        <div id="page-products" class="page">
+          <div class="win-section">
+            <div class="win-section-title">&#128196; Products &mdash; EverAg Solutions</div>
+            <h2 class="sec-title editable" style="font-size:13px;font-weight:bold;color:#000080;margin-bottom:4px" contenteditable="false">EverAg Products and Services</h2>
+            <p style="font-size:11px;color:#444;margin-bottom:12px" class="editable" contenteditable="false">Everything you need to manage, grow, and optimize your agricultural operation backed by EverAg expertise.</p>
+            <div class="win-hr"></div>
+            <div class="products-grid">
+              <div class="prod-card">
+                <div class="prod-card-title">&#127806; Grain Management</div>
+                <p class="editable" contenteditable="false">Track grain inventory, monitor prices, and manage contracts all in one place. Real-time market data at your fingertips.</p>
+                <span class="prod-link" onclick="goPage('resources')">&#128196; View Resources</span>
+              </div>
+              <div class="prod-card">
+                <div class="prod-card-title">&#128176; Ag Finance Tools</div>
+                <p class="editable" contenteditable="false">Streamline farm accounting, manage cash flow, and get lending support tailored for agricultural operations.</p>
+                <span class="prod-link" onclick="goPage('resources')">&#128196; View Resources</span>
+              </div>
+              <div class="prod-card">
+                <div class="prod-card-title">&#128202; Market Analytics</div>
+                <p class="editable" contenteditable="false">Access commodity price trends, risk analysis, and market forecasting tools designed for today's ag producers.</p>
+                <span class="prod-link" onclick="goPage('resources')">&#128196; View Resources</span>
+              </div>
+              <div class="prod-card">
+                <div class="prod-card-title">&#128668; Fleet &amp; Equipment</div>
+                <p class="editable" contenteditable="false">Monitor and manage your equipment, schedule maintenance, and maximize operational uptime every season.</p>
+                <span class="prod-link" onclick="goPage('resources')">&#128196; View Resources</span>
+              </div>
+              <div class="prod-card">
+                <div class="prod-card-title">&#127760; Customer Portal</div>
+                <p class="editable" contenteditable="false">A dedicated hub to manage your EverAg account, view invoices, access contracts, and connect with support instantly.</p>
+                <span class="prod-link" onclick="goPage('resources')">&#128196; View Resources</span>
+              </div>
+              <div class="prod-card">
+                <div class="prod-card-title">&#128222; Advisory Services</div>
+                <p class="editable" contenteditable="false">Work one-on-one with EverAg specialists for personalized guidance on crop marketing, risk management, and strategy.</p>
+                <span class="prod-link" onclick="goPage('contact')">&#128139; Contact Us</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== RESOURCES ===== -->
+        <div id="page-resources" class="page">
+          <div class="win-section">
+            <div class="win-section-title">&#128218; Resources &mdash; Knowledge Base</div>
+            <h2 style="font-size:13px;font-weight:bold;color:#000080;margin-bottom:4px" class="editable" contenteditable="false">Helpful Resources</h2>
+            <p style="font-size:11px;color:#444;margin-bottom:10px" class="editable" contenteditable="false">Can&apos;t reach us right now? Browse our library of articles, videos, and guides for quick answers.</p>
+            <div class="win-hr"></div>
+            <div class="res-tabs">
+              <button class="tab-btn active" onclick="filterRes('all',this)">All</button>
+              <button class="tab-btn" onclick="filterRes('video',this)">&#127910; Videos</button>
+              <button class="tab-btn" onclick="filterRes('article',this)">&#128196; Articles</button>
+              <button class="tab-btn" onclick="filterRes('guide',this)">&#128218; Guides</button>
+            </div>
+            <div class="res-grid" id="resGrid">
+              <div class="res-card" data-type="video"><span class="res-type type-video">Video</span><h4 class="editable" contenteditable="false">Getting Started with EverAg</h4><p class="editable" contenteditable="false">A quick walkthrough of your EverAg account setup and core features overview.</p><span class="res-link">&#9654; Watch Video</span></div>
+              <div class="res-card" data-type="article"><span class="res-type type-article">Article</span><h4 class="editable" contenteditable="false">Understanding Your Grain Contract</h4><p class="editable" contenteditable="false">Learn how to read, manage, and modify your grain contracts within the platform.</p><span class="res-link">&#128196; Read Article</span></div>
+              <div class="res-card" data-type="guide"><span class="res-type type-guide">Guide</span><h4 class="editable" contenteditable="false">Cash Flow Planning for Producers</h4><p class="editable" contenteditable="false">Step-by-step guide to setting up your seasonal cash flow plan using EverAg Finance.</p><span class="res-link">&#128218; Open Guide</span></div>
+              <div class="res-card" data-type="video"><span class="res-type type-video">Video</span><h4 class="editable" contenteditable="false">Market Analytics Deep Dive</h4><p class="editable" contenteditable="false">How to use EverAg analytics to make smarter marketing decisions.</p><span class="res-link">&#9654; Watch Video</span></div>
+              <div class="res-card" data-type="article"><span class="res-type type-article">Article</span><h4 class="editable" contenteditable="false">How to Submit a Support Ticket</h4><p class="editable" contenteditable="false">Step-by-step for submitting and tracking a support request through the portal.</p><span class="res-link">&#128196; Read Article</span></div>
+              <div class="res-card" data-type="guide"><span class="res-type type-guide">Guide</span><h4 class="editable" contenteditable="false">Risk Management Essentials</h4><p class="editable" contenteditable="false">Best practices for hedging and protecting your operation from market volatility.</p><span class="res-link">&#128218; Open Guide</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== HOW IT WORKS ===== -->
+        <div id="page-howitworks" class="page">
+          <div class="win-section">
+            <div class="win-section-title">&#9881;&#65039; How It Works &mdash; The Process</div>
+            <h2 style="font-size:13px;font-weight:bold;color:#000080;margin-bottom:4px" class="editable" contenteditable="false">How EverAg Works For You</h2>
+            <p style="font-size:11px;color:#444;margin-bottom:12px" class="editable" contenteditable="false">From onboarding to day-to-day operations, EverAg is designed to make your life easier at every step.</p>
+            <div class="win-hr"></div>
+            <div class="steps-grid">
+              <div class="step-card">
+                <div class="step-num">01</div>
+                <div><h3 class="editable" contenteditable="false">Connect Your Account</h3><p class="editable" contenteditable="false">Link your grain elevator, bank, and operation data to your EverAg profile in minutes.</p></div>
+              </div>
+              <div class="step-card">
+                <div class="step-num">02</div>
+                <div><h3 class="editable" contenteditable="false">Set Your Goals</h3><p class="editable" contenteditable="false">Define your marketing targets, risk tolerance, and cash flow needs. EverAg builds your plan.</p></div>
+              </div>
+              <div class="step-card">
+                <div class="step-num">03</div>
+                <div><h3 class="editable" contenteditable="false">Get Smart Insights</h3><p class="editable" contenteditable="false">Receive real-time alerts, market analysis, and recommendations tailored to your operation.</p></div>
+              </div>
+              <div class="step-card">
+                <div class="step-num">04</div>
+                <div><h3 class="editable" contenteditable="false">Execute and Grow</h3><p class="editable" contenteditable="false">Make informed decisions, execute contracts, and track results all from one dashboard.</p></div>
+              </div>
+            </div>
+            <div class="demo-box" style="margin-top:12px">
+              <strong>&#128187; Interactive AI Demo Coming Soon</strong>
+              <p class="editable" contenteditable="false">An interactive product demo will be embedded here. Check back after Week 3 of the internship.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== ABOUT ===== -->
+        <div id="page-about" class="page">
+          <div class="win-section">
+            <div class="win-section-title">&#128100; About &mdash; Meet Your Success Partner</div>
+            <div class="about-grid">
+              <div class="photos-grid">
+                <div class="upload-slot main">
+                  <img id="img1" src="" alt="Main photo"/>
+                  <p class="slot-ph" id="ph1">Your main photo.<br/>Log in as admin to upload.</p>
+                  <div class="slot-overlay"><span>Change photo</span></div>
+                  <div class="slot-hint">Click to upload</div>
+                  <input type="file" accept="image/*" class="slot-input" onchange="handlePhoto(this,'img1','ph1')"/>
+                </div>
+                <div class="upload-slot small">
+                  <img id="img2" src="" alt="Photo 2"/>
+                  <p class="slot-ph" id="ph2">Photo 2</p>
+                  <div class="slot-overlay"><span>Change</span></div>
+                  <div class="slot-hint">Click to upload</div>
+                  <input type="file" accept="image/*" class="slot-input" onchange="handlePhoto(this,'img2','ph2')"/>
+                </div>
+                <div class="upload-slot small">
+                  <img id="img3" src="" alt="Photo 3"/>
+                  <p class="slot-ph" id="ph3">Photo 3</p>
+                  <div class="slot-overlay"><span>Change</span></div>
+                  <div class="slot-hint">Click to upload</div>
+                  <input type="file" accept="image/*" class="slot-input" onchange="handlePhoto(this,'img3','ph3')"/>
+                </div>
+              </div>
+              <div class="about-text">
+                <h2 class="editable" contenteditable="false">Hi, I am AuBree Route</h2>
+                <p class="editable" contenteditable="false">I am a Customer Success Intern at EverAg, dedicated to making sure every customer gets the most out of their EverAg products and services. I am your first point of contact for questions, resources, and support.</p>
+                <p class="editable" contenteditable="false">This portal is designed to give you fast, reliable answers even when I am not immediately available. My goal is to make your EverAg experience seamless from onboarding through your first harvest season and beyond.</p>
+                <p class="editable" contenteditable="false">Whether you are a longtime EverAg customer or just getting started, I am here to help you succeed.</p>
+                <div class="upload-slot video" style="margin-top:10px">
+                  <video id="myVideo" controls style="display:none"></video>
+                  <p class="slot-ph" id="videoPh">Your pitch video.<br/>Log in as admin to upload.</p>
+                  <div class="slot-overlay"><span>Change video</span></div>
+                  <div class="slot-hint">Click to upload video</div>
+                  <input type="file" accept="video/*" class="slot-input" onchange="handleVideo(this)"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== CONTACT ===== -->
+        <div id="page-contact" class="page">
+          <div class="win-section">
+            <div class="win-section-title">&#128139; Contact &mdash; Reach Out</div>
+            <h2 style="font-size:13px;font-weight:bold;color:#000080;margin-bottom:4px" class="editable" contenteditable="false">Let&apos;s Talk</h2>
+            <div class="win-hr"></div>
+            <div class="contact-grid">
+              <div>
+                <p class="editable" contenteditable="false">Have a question about your EverAg product or service? Fill out the form and I will get back to you as soon as possible, typically within 1 business day.</p>
+                <div class="win-groupbox" style="margin-top:12px">
+                  <div class="win-groupbox-label">Contact Information</div>
+                  <div class="c-detail">&#128139; Email: <span class="editable" contenteditable="false"><a href="mailto:aubree@everag.com">aubree@everag.com</a></span></div>
+                  <div class="c-detail">&#128222; Phone: <span class="editable" contenteditable="false">(555) 000-0000 placeholder</span></div>
+                  <div class="c-detail">&#128336; Hours: <span class="editable" contenteditable="false">Mon-Fri, 8am-5pm CT</span></div>
+                </div>
+              </div>
+              <div>
+                <div class="win-groupbox">
+                  <div class="win-groupbox-label">Send a Message</div>
+                  <div class="c-form" id="cForm" style="margin-top:4px">
+                    <label style="font-size:10px">Name:</label>
+                    <input class="win-input" type="text" id="cName" placeholder="Your name"/>
+                    <label style="font-size:10px">Email:</label>
+                    <input class="win-input" type="email" id="cEmail" placeholder="your@email.com"/>
+                    <label style="font-size:10px">Subject:</label>
+                    <input class="win-input" type="text" id="cSub" placeholder="Subject or product name"/>
+                    <label style="font-size:10px">Message:</label>
+                    <textarea class="win-textarea" id="cMsg" placeholder="Tell me what you need help with..."></textarea>
+                    <div style="display:flex;gap:6px;margin-top:4px">
+                      <button class="btn btn-default" onclick="submitContact()">Send Message</button>
+                      <button class="btn" onclick="document.getElementById('cForm').reset()">Clear</button>
+                    </div>
+                  </div>
+                  <div class="c-confirm" id="cConfirm">&#9989; Message received! I will be in touch shortly.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /#page-content -->
+    </div><!-- /#content-area -->
+
+    <!-- STATUS BAR -->
+    <div id="statusbar">
+      <div class="status-pane" id="statusMsg">Ready</div>
+      <div class="status-pane" style="margin-left:auto">&#127758; http://everag.local</div>
+      <div class="status-pane">&#128274; Secure</div>
+    </div>
+
+  </div><!-- /#main-window -->
+</div><!-- /#desktop -->
+
+<!-- TASKBAR -->
+<div id="taskbar">
+  <button class="start-btn" onclick="goPage('home')">
+    <svg width="16" height="16" viewBox="0 0 16 16"><rect x="0" y="0" width="7" height="7" fill="#f00"/><rect x="9" y="0" width="7" height="7" fill="#0f0"/><rect x="0" y="9" width="7" height="7" fill="#00f"/><rect x="9" y="9" width="7" height="7" fill="#ff0"/></svg>
+    Start
+  </button>
+  <div class="taskbar-sep"></div>
+  <div class="taskbar-task" id="task-home" onclick="goPage('home')">&#127968; Home</div>
+  <div class="taskbar-task inactive" id="task-products" onclick="goPage('products')">&#128196; Products</div>
+  <div class="taskbar-task inactive" id="task-resources" onclick="goPage('resources')">&#128218; Resources</div>
+  <div class="tray" id="clock">12:00 PM</div>
+</div>
+
+<!-- ADMIN BAR -->
+<div id="admin-bar">
+  <span>&#128274; <strong>Admin Mode Active</strong> &mdash; click highlighted text to edit, click photo/video slots to upload</span>
+  <div class="ab-btns">
+    <button class="btn btn-default" onclick="saveContent()">&#128190; Save Changes</button>
+    <button class="btn" onclick="logoutAdmin()">&#128274; Log Out</button>
+  </div>
+</div>
+
+<!-- ADMIN MODAL -->
+<div class="modal-bg" id="modal">
+  <div class="modal-box">
+    <div class="titlebar">
+      <div class="titlebar-title">&#128274; Admin Access</div>
+      <div class="titlebar-btns">
+        <div class="titlebar-btn" onclick="closeModal()">&#10005;</div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <p>Enter your password to enable editing and uploads.</p>
+      <div class="modal-err" id="modalErr">&#10005; Incorrect password. Try again.</div>
+      <label style="font-size:10px;display:block;margin-bottom:2px">Password:</label>
+      <input type="password" class="win-input" id="pwInput" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()" style="margin-bottom:10px"/>
+      <div class="modal-btns">
+        <button class="btn btn-default modal-ok" onclick="checkPw()">OK</button>
+        <button class="btn modal-cancel" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTIFICATION -->
+<div id="notif">
+  <span class="notif-icon">&#9888;</span>
+  <span id="notifMsg"></span>
+</div>
+
+<script>
+var PW = "EverAg2025!";
+var adminMode = false;
+
+// Update clock
+function updateClock() {
+  var now = new Date();
+  var h = now.getHours(), m = now.getMinutes();
+  var ampm = h >= 12 ? "PM" : "AM";
+  h = h % 12 || 12;
+  document.getElementById("clock").textContent = h + ":" + (m < 10 ? "0" + m : m) + " " + ampm;
+}
+updateClock();
+setInterval(updateClock, 30000);
+
+var pages = ["home","products","resources","howitworks","about","contact"];
+
+function goPage(id) {
+  var allPgs = document.querySelectorAll(".page");
+  for (var i = 0; i < allPgs.length; i++) allPgs[i].style.display = "none";
+
+  var sideItems = document.querySelectorAll(".sidebar-item");
+  for (var i = 0; i < sideItems.length; i++) sideItems[i].classList.remove("active");
+
+  var taskItems = document.querySelectorAll(".taskbar-task");
+  for (var i = 0; i < taskItems.length; i++) taskItems[i].classList.add("inactive");
+
+  var el = document.getElementById("page-" + id);
+  if (el) el.style.display = "block";
+
+  var nb = document.getElementById("nl-" + id);
+  if (nb) nb.classList.add("active");
+
+  var tb = document.getElementById("task-" + id);
+  if (tb) tb.classList.remove("inactive");
+
+  // Update address bar
+  var labels = {home:"Home",products:"Products",resources:"Resources",howitworks:"How It Works",about:"About",contact:"Contact"};
+  document.getElementById("addressBar").value = "http://everag.local/customer-success/" + id;
+  document.getElementById("main-titlebar").querySelector(".titlebar-title").innerHTML = '<svg class="titlebar-icon" viewBox="0 0 16 16" fill="none"><rect x="0" y="4" width="16" height="10" fill="#f0c040" stroke="#a07800" stroke-width="0.5"/><rect x="0" y="4" width="7" height="3" fill="#f0c040" rx="1" stroke="#a07800" stroke-width="0.5"/><rect x="0" y="5" width="16" height="9" fill="#ffd060" stroke="#a07800" stroke-width="0.5"/></svg>EverAg Customer Success Portal - [' + (labels[id] || id) + ']';
+
+  document.getElementById("statusMsg").textContent = (labels[id] || id) + " loaded.";
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+
+function openModal() {
+  document.getElementById("modal").classList.add("open");
+  setTimeout(function() { document.getElementById("pwInput").focus(); }, 80);
+}
+function closeModal() {
+  document.getElementById("modal").classList.remove("open");
+  document.getElementById("pwInput").value = "";
+  document.getElementById("modalErr").style.display = "none";
+}
+function checkPw() {
+  if (document.getElementById("pwInput").value === PW) {
+    adminMode = true;
+    document.body.classList.add("admin");
+    var ed = document.querySelectorAll(".editable");
+    for (var i = 0; i < ed.length; i++) ed[i].setAttribute("contenteditable","true");
+    document.getElementById("admin-bar").classList.add("show");
+    closeModal();
+    showNotif("Admin mode on. Edit text and upload photos/video.");
+  } else {
+    document.getElementById("modalErr").style.display = "block";
+  }
+}
+function logoutAdmin() {
+  adminMode = false;
+  document.body.classList.remove("admin");
+  var ed = document.querySelectorAll(".editable");
+  for (var i = 0; i < ed.length; i++) ed[i].setAttribute("contenteditable","false");
+  document.getElementById("admin-bar").classList.remove("show");
+  showNotif("Logged out of admin mode.");
+}
+function handlePhoto(input, imgId, phId) {
+  if (!adminMode) return;
+  var file = input.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var img = document.getElementById(imgId);
+    img.src = e.target.result;
+    img.style.display = "block";
+    document.getElementById(phId).style.display = "none";
+    try { localStorage.setItem("photo_" + imgId, e.target.result); } catch(err) {}
+    showNotif("Photo uploaded!");
+  };
+  reader.readAsDataURL(file);
+}
+function handleVideo(input) {
+  if (!adminMode) return;
+  var file = input.files[0];
+  if (!file) return;
+  var url = URL.createObjectURL(file);
+  var vid = document.getElementById("myVideo");
+  vid.src = url;
+  vid.style.display = "block";
+  document.getElementById("videoPh").style.display = "none";
+  showNotif("Video uploaded!");
+}
+function loadPhotos() {
+  var ids = ["img1","img2","img3"];
+  for (var i = 0; i < ids.length; i++) {
+    try {
+      var src = localStorage.getItem("photo_" + ids[i]);
+      if (src) {
+        var img = document.getElementById(ids[i]);
+        img.src = src;
+        img.style.display = "block";
+        var ph = document.getElementById(ids[i].replace("img","ph"));
+        if (ph) ph.style.display = "none";
+      }
+    } catch(e) {}
+  }
+}
+function saveContent() {
+  var data = {};
+  var ed = document.querySelectorAll(".editable");
+  for (var i = 0; i < ed.length; i++) data["e" + i] = ed[i].innerHTML;
+  try {
+    localStorage.setItem("everag_v5", JSON.stringify(data));
+    showNotif("All changes saved!");
+  } catch(e) {
+    showNotif("Save failed: " + e.message);
+  }
+}
+function loadContent() {
+  try {
+    var data = JSON.parse(localStorage.getItem("everag_v5") || "{}");
+    var ed = document.querySelectorAll(".editable");
+    for (var i = 0; i < ed.length; i++) { if (data["e"+i]) ed[i].innerHTML = data["e"+i]; }
+  } catch(e) {}
+}
+function showNotif(msg) {
+  document.getElementById("notifMsg").textContent = msg;
+  var n = document.getElementById("notif");
+  n.classList.add("show");
+  setTimeout(function() { n.classList.remove("show"); }, 2800);
+}
+function submitCapture() {
+  var n = document.getElementById("capName").value.trim();
+  var e = document.getElementById("capEmail").value.trim();
+  if (!n || !e) { showNotif("Please enter your name and email"); return; }
+  document.getElementById("capFields").style.display = "none";
+  document.getElementById("capConfirm").style.display = "block";
+}
+function submitContact() {
+  var n = document.getElementById("cName").value.trim();
+  var e = document.getElementById("cEmail").value.trim();
+  var m = document.getElementById("cMsg").value.trim();
+  if (!n || !e || !m) { showNotif("Please fill out name, email, and message"); return; }
+  document.getElementById("cForm").style.display = "none";
+  document.getElementById("cConfirm").style.display = "block";
+}
+function filterRes(type, btn) {
+  var tabs = document.querySelectorAll(".tab-btn");
+  for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active");
+  btn.classList.add("active");
+  var cards = document.querySelectorAll(".res-card");
+  for (var i = 0; i < cards.length; i++) {
+    cards[i].style.display = (type === "all" || cards[i].dataset.type === type) ? "flex" : "none";
+  }
+}
+document.getElementById("modal").addEventListener("click", function(e) {
+  if (e.target === this) closeModal();
+});
+
+// Init
+(function(){
+  var allPgs = document.querySelectorAll(".page");
+  for (var i = 0; i < allPgs.length; i++) allPgs[i].style.display = "none";
+  loadContent();
+  loadPhotos();
+  goPage("home");
+})();
+</script>
+</body>
+</html>
